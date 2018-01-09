@@ -112,7 +112,8 @@ public class MetaStoreUtils {
             "sys_info",
             "cluster_info",
             "backup_file",
-            "file_state"
+            "file_state",
+            "small_file"
     };
     try {
       String url = conn.getMetaData().getURL();
@@ -167,7 +168,8 @@ public class MetaStoreUtils {
         "DROP TABLE IF EXISTS backup_file",
         "DROP TABLE IF EXISTS sys_info",
         "DROP TABLE IF EXISTS cluster_info",
-        "DROP TABLE IF EXISTS file_state"
+        "DROP TABLE IF EXISTS file_state",
+        "DROP TABLE IF EXISTS small_file"
     };
     String createEmptyTables[] =
         new String[] {
@@ -345,6 +347,12 @@ public class MetaStoreUtils {
               + " path varchar(1000) PRIMARY KEY,\n"
               + " type tinyint(4) NOT NULL,\n"
               + " stage tinyint(4) NOT NULL\n"
+              + ");",
+          "CREATE TABLE small_file (\n"
+              + "path varchar(1000) NOT NULL PRIMARY KEY,\n"
+              + "container_file_path varchar(4096) NOT NULL,\n"
+              + "offset bigint(20) NOT NULL,\n"
+              + "length bigint(20) NOT NULL\n"
               + ");"
         };
     try {
