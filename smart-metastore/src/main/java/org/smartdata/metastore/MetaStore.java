@@ -2032,4 +2032,25 @@ public class MetaStore implements CopyMetaService, CmdletMetaService, BackupMeta
     }
     return smallFileDao.getSmallFile(path);
   }
+
+  public void deleteSmallFile(String path) {
+    if (smallFileDao.getCountByPath(path) == 0) {
+      throw new RuntimeException("This small file not exist.");
+    }
+    smallFileDao.deleteSmallFile(path);
+  }
+
+  public void renameSmallFile(String path, String newPath) {
+    if (smallFileDao.getCountByPath(path) == 0) {
+      throw new RuntimeException("This small file not exist.");
+    }
+    smallFileDao.renameSmallFile(path, newPath);
+  }
+
+  public void truncateSmallFile(String path) {
+    if (smallFileDao.getCountByPath(path) == 0) {
+      throw new RuntimeException("This small file not exist.");
+    }
+    smallFileDao.truncateSmallFile(path);
+  }
 }
